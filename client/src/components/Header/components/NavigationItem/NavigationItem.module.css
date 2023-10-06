@@ -1,0 +1,20 @@
+.nav_link {
+  color: var(--dark-color);
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+
+.dropdown {
+  position: absolute;
+}
+
+.dropdown_item:not(:last-child) {
+  border-bottom: 1px solid var(--cards-bg-color);
+}
+
+.dropdown_link {
+  color: inherit;
+  display: flex;
+  padding: .75rem 0 .75rem .875rem;
+}
