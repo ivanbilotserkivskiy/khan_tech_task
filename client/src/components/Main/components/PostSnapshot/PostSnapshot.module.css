@@ -1,0 +1,26 @@
+.article {
+  max-width: 361px;
+  padding: 16px 32px;
+  background-repeat: no-repeat;
+}
+
+.article:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.title {
+  width: 100%;
+  margin-bottom: 10px;
+  color: var(--main-bg-color);
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  font-weight: 500;
+}
+
+.date {
+  margin-bottom: 2px;
+  color: var(--main-bg-color);
+  font-weight: 500;
+  font-size: .875rem;
+  line-height: 1rem;
+}
