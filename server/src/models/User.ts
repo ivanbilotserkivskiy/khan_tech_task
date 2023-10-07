@@ -1,7 +1,9 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../connection/index.js';
 
-class User extends Model {}
+class User extends Model {
+  password: any;
+}
 
 User.init({
   id: {

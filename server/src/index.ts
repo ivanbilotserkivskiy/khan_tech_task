@@ -5,6 +5,7 @@ import User from './models/User.js';
 import Post from './models/Post.js';
 import Permission from './models/Permission.js';
 import bodyParser from 'body-parser';
+import bcrypt from 'bcrypt';
 
 dotenv.config();
 
@@ -12,7 +13,7 @@ const app: Express = express();
 app.use(bodyParser.json());
 const port = process.env.PORT || 3004;
 
-app.get('/', async (req: Request, res: Response) => {
+app.get('/users', async (req: Request, res: Response) => {
   try {
     const users = await User.findAll()
     res.send(users);
@@ -21,6 +22,121 @@ app.get('/', async (req: Request, res: Response) => {
     return 'SOmething went wrong with getting users'
   }
 });
+
+app.post('/register/user', async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+
+  console.log(req.body)
+
+  if (!username || !password) {
+    return res.status(400).json({
+      "message": "username and pasword are required"
+    })
+  }
+
+  const duplicate = await User.findOne({
+    where: {
+      username: username,
+    }
+  })
+
+  if (duplicate) {
+    return res.sendStatus(409);
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = {
+      username: username, 
+      password: hashedPassword, 
+      permissionId: 2
+    }
+
+    const registerUser = await User.build(newUser);
+    registerUser.save()
+
+    res.send(registerUser);
+  }
+  catch {
+    return res.status(400).json({
+      "message": "Something went wrong with user sign up"
+    })
+  }
+})
+
+app.post('/register/admin', async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+
+  console.log(req.body)
+
+  if (!username || !password) {
+    return res.status(400).json({
+      "message": "username and pasword are required"
+    })
+  }
+
+  const duplicate = await User.findOne({
+    where: {
+      username: username,
+    }
+  })
+
+  if (duplicate) {
+    return res.sendStatus(409);
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = {
+      username: username, 
+      password: hashedPassword, 
+      permissionId: 1,
+    }
+
+    const registerUser = await User.build(newUser);
+    registerUser.save()
+
+    res.send(registerUser);
+  }
+  catch {
+    return res.status(400).json({
+      "message": "Something went wrong with user sign up"
+    })
+  }
+})
+
+app.post('/login/user', async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({
+      "message": "username and pasword are required"
+    })
+  }
+
+  const foundUser = await User.findOne({
+    where: {
+      username: username,
+    }
+  });
+
+  if (!foundUser) {
+    return res.sendStatus(401);
+  }
+
+  console.log(foundUser.dataValues.password, password)
+
+  const passwordMatch = await bcrypt.compare(password, foundUser.dataValues.password);
+
+  if (passwordMatch) {
+    res.send({ "succes": `User: ${username} is logged in!` })
+  } else {
+    res.sendStatus(401);
+  }
+
+})
 
 app.get('/posts', async (req: Request, res: Response) => {
   try {
