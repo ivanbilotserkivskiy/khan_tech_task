@@ -1,0 +1,31 @@
+.footer {
+  padding-top: 4rem;
+  padding-bottom: 2.75rem;
+  background-color: var(--body-text-color);
+}
+
+.footer_container {
+  /* padding: 4rem 18.75rem 2.75rem; */
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  align-self: center;
+  justify-self: center;
+  max-width: 1320px;
+}
+
+.content {
+  justify-content: space-between;
+  display: flex;
+}
+.rights {
+  color: var(--main-bg-color);
+  align-self: flex-start;
+}
+
+.title {
+  margin-bottom: 1.5rem;
+  color:  var(--main-bg-color);
+  font-size: 1.375rem;
+  line-height: 2.25rem;
+}

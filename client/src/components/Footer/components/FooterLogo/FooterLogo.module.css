@@ -1,0 +1,10 @@
+.logo {
+  margin-bottom: 1.25rem;
+}
+
+.text {
+  max-width: 312px;
+  color: var(--main-bg-color);
+  font-size: .875rem;
+  line-height: 1.625rem;
+}
