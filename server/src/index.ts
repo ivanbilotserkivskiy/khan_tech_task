@@ -11,6 +11,7 @@ dotenv.config();
 
 const app: Express = express();
 app.use(bodyParser.json());
+app.use(express.static('public'))
 const port = process.env.PORT || 3004;
 
 app.get('/users', async (req: Request, res: Response) => {

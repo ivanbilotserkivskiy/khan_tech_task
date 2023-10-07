@@ -13,6 +13,7 @@ Post.init({
   realm: DataTypes.STRING,
   title: DataTypes.STRING,
   description: DataTypes.STRING,
+  image: DataTypes.STRING,
   published: {
     type: DataTypes.TIME,
   },
