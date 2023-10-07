@@ -1,6 +1,6 @@
 import logo from '../../images/icons/Logo.svg';
 import HeaderStyles from './Header.module.css';
-import { NavigationItem } from './components/NavigationItem'
+import { Navigation } from './components/Navigation';
 
 export const Header = () => {
   return (
@@ -16,37 +16,7 @@ export const Header = () => {
       </div>
 
       <div className={HeaderStyles.right}>
-        <nav className={HeaderStyles.nav}>
-          <ul className={HeaderStyles.list}>
-            <li className={HeaderStyles.item}>
-              <a href='#home' className={HeaderStyles.nav_link}>Home</a>
-            </li>
-            <li className={HeaderStyles.item}>
-              <a href='#service' className={HeaderStyles.nav_link}>Services</a>
-              <div>
-                <ul>
-
-                </ul>
-              </div>
-            </li>
-            {/* <li className={HeaderStyles.item}>
-              <a href='#about' className={HeaderStyles.nav_link}>About</a>
-            </li> */}
-            <NavigationItem />
-            <li className={HeaderStyles.item}>
-              <a href='#book_now' className={HeaderStyles.nav_link}>Book now</a>
-            </li>
-            <li className={HeaderStyles.item}>
-              <a href='#shop' className={HeaderStyles.nav_link}>Shop</a>
-            </li>
-            <li className={HeaderStyles.item}>
-              <a href='#blog' className={`${HeaderStyles.nav_link} ${HeaderStyles.active}`}>Blog</a>
-            </li>
-            <li className={HeaderStyles.item}>
-              <a href='#contact' className={HeaderStyles.nav_link}>Contact</a>
-            </li>
-          </ul>
-        </nav>
+        <Navigation />
       </div>
     </header>
   )

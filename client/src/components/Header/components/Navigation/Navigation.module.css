@@ -1,0 +1,35 @@
+.list {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.item {
+  position: relative;
+}
+
+.nav_link {
+  color: var(--dark-color);
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+
+.nav_link:hover {
+  cursor: pointer;
+  color: var(--accent-color);
+}
+
+.active {
+  position: relative;
+  color: var(--accent-color);
+}
+
+.active::after {
+  position: absolute;
+  content: '';
+  height: 3px;
+  width: 100%;
+  background-color: var(--accent-color);
+  left: 0;
+  bottom: -2.35rem;
+}

@@ -44,6 +44,9 @@
   gap: 1.5rem;
 }
 
+.item {
+  position: relative;
+}
 
 .nav_link {
   color: var(--dark-color);
