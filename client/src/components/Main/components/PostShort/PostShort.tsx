@@ -15,8 +15,8 @@ export const PostShort = () => {
   }, [])
 
   return (
-    <section className={`${PostShortStyles.section} ${PostShortStyles.section_short}`}>
+    <article className={`${PostShortStyles.section} ${PostShortStyles.section_short}`}>
       {posts.map((post) => (<Post key={post.published} post={post}/>))}
-    </section>
+    </article>
   )
 }

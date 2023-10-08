@@ -131,6 +131,9 @@
   }
 }
 @media screen and (min-width: 1320px) {
+  .image {
+    max-width: 424px;
+  }
   .fullscreen_image {
     width: 872px;
     height: 432px;

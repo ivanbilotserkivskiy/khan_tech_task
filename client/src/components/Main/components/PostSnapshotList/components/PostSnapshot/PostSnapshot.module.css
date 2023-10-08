@@ -1,8 +1,8 @@
 .article {
-  width: 600px;
-  
   box-sizing: border-box;
+  width: 600px;
   padding: 16px 32px;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -40,10 +40,15 @@
     grid-template-columns: repeat(2, 424px);
   }
   .article {
-    max-width: 361px;
+    max-width: 249px;
+    box-sizing: content-box;
     padding: 16px 32px;
     background-repeat: no-repeat;
   }
 }
 @media screen and (min-width: 1320px) {
+  .article {
+    max-width: 425px;
+    box-sizing: border-box;
+  }
 }

@@ -1,16 +1,44 @@
+import { useState, useEffect } from 'react'
 import { PostDetail } from "./components/PostDetail"
 import { PostShort } from "./components/PostShort";
 import { PostSnapshotList } from "./components/PostSnapshotList";
 import MainStyles from './Main.module.css';
+import { Post } from '../../types/Post';
+import { getOnePost } from '../../api/posts';
 
 export const Main = () => {
+
+  const [randomPost, setRandomPost] = useState<Post | null>(null);
+  const [largePost, setLargePost] = useState<Post |null>(null);
+
+  useEffect(() => {
+    const fetchData = async() => {
+      try {
+        const firstPost = await getOnePost('?limit=1')
+  
+        setRandomPost(firstPost)
+  
+        const secondPost = await getOnePost(`?postId=${firstPost.id}`)
+  
+        setLargePost(secondPost);
+      }
+  
+      catch {
+  
+      }
+    }
+
+    fetchData();
+  }, [])
+
   return (
     <main className={MainStyles.main}>
       <section className={MainStyles.content}>
         <section className={MainStyles.top}>
-          <div className={MainStyles.top_left}>
-            <PostDetail />
-          </div>
+              {randomPost
+                ? (<PostDetail post={randomPost}/>)
+                : null
+              }
 
           <div className={MainStyles.top_right}>
             <h3 className={MainStyles.snapshot_title}>Our Latest News</h3>
@@ -19,7 +47,10 @@ export const Main = () => {
         </section>
 
         <section className={MainStyles.middle}>
-          <PostDetail fullscrean={true} />
+          {largePost
+            ? (<PostDetail fullscrean={true} post={largePost}/>)
+            : null
+          }
         </section>
 
         <section className={MainStyles.bottom}>

@@ -1,16 +1,20 @@
 import { Post } from '../types/Post';
 import { client } from '../utils/fetchClient';
 
-export const getPosts = () => {
-  return client.get<Post[]>('/posts')
+export const getPosts = (query:string = '') => {
+  return client.get<Post[]>(`/posts${query}`);
+}
+
+export const getOnePost = (query:string = '') => {
+  return client.get<Post>(`/posts${query}`);
 }
 
 export const getPostsById = (postId: number) => {
   return client.get<Post[]>(`/posts?userId=${postId}`);
 };
 
-export const addPost = ({ title, details, readTime, realm }: Omit<Post, 'id'>) => {
-  return client.post<Post>('/posts', { title, details, readTime, realm });
+export const addPost = ({ title, description, readTime, realm }: Omit<Post, 'id'>) => {
+  return client.post<Post>('/posts', { title, description, readTime, realm });
 };
 
 export const deletePost = (postId: number) => {

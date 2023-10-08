@@ -35,10 +35,6 @@
 
 .bottom {
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(1, 424px);
-  row-gap: 72px;
-  column-gap: 24px;
 }
 
 
@@ -48,24 +44,9 @@
 
 
 @media screen and (min-width: 920px) {
-  .bottom {
-    grid-template-columns: repeat(2, 424px);
-  }
   .top {
     flex-direction: row;
   }
-
-  .right {
-    width: 600px;
-  }
-
-  .right_fullscreen {
-    width: 872px;
-  }
 }
 
-@media screen and (min-width: 1320px) {
-  .bottom {
-    grid-template-columns: repeat(3, 424px);
-  }
-}
+

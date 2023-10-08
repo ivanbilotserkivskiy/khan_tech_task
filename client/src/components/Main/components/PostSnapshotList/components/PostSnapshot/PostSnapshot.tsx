@@ -1,15 +1,25 @@
+import { Post } from '../../../../../../types/Post';
+import { baseURL } from '../../../../../../utils/baseURL';
+import { getDateFromTime } from '../../../../../../utils/getDateFromTime';
 import PostSnapshotStyles from './PostSnapshot.module.css';
 
-export const PostSnapshot = () => {
+type Porps = {
+  snapshot: Post;
+}
+
+export const PostSnapshot:React.FC<Porps> = ({ snapshot }) => {
+
+  const date = getDateFromTime(snapshot.published);
+
   return (
     <article
       className={PostSnapshotStyles.article}
       style={{
-        backgroundImage: 'url(https://www.jquery-az.com/html/images/banana.jpg)'
+        backgroundImage: `url(${baseURL}${snapshot.image})`
       }}
     >
-      <h4 className={PostSnapshotStyles.title}>Basic Swedish Back Massage Techniques</h4>
-      <p className={PostSnapshotStyles.date}>28 Feb 2021</p>
+      <h4 className={PostSnapshotStyles.title}>{snapshot.title}</h4>
+      <p className={PostSnapshotStyles.date}>{date}</p>
     </article>
   )
 }
