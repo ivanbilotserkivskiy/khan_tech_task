@@ -1,0 +1,43 @@
+.content {
+  background-color: var(--scards-bg-color);
+  padding: 16px 32px;
+  display: flex;
+  flex-direction: column;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.input:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.input_description {
+  height: 200px;
+}
+
+.delete {
+  background-color: var(--accent-color);
+  color: var(--cards-bg-color);
+  padding: 10px;
+  margin-top: 10px;
+  width: 200px;
+  align-self: flex-end;
+  border-radius: 5px;
+}
+
+.submit {
+  background-color: var(--accent-color);
+  color: var(--cards-bg-color);
+  padding: 10px;
+  margin-top: 10px;
+  width: 200px;
+  align-self: center;
+  border-radius: 5px;
+}

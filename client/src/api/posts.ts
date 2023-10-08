@@ -18,15 +18,15 @@ export const getPostsById = (postId: number) => {
   return client.get<Post[]>(`/posts?userId=${postId}`);
 };
 
-export const addPost = ({ title, description, readTime, realm }: Omit<Post, 'id'>) => {
-  return client.post<Post>('/posts', { title, description, readTime, realm });
+export const addPost = ({ title, description, readTime, realm, userId }: Omit<Post, 'id' | 'published' | 'users' | 'image'>) => {
+  return client.post<Post>('/posts', { title, description, readTime, realm, userId });
 };
 
 export const deletePost = (postId: number) => {
   return client.delete(`/posts/${postId}`);
 };
 
-export const patchPostTitle = (postId: number,
-  { title }: Pick<Post, 'title'>) => {
-  return client.put(`/posts/${postId}`, { title });
+export const updatePost = (postId: number,
+  { title, description, realm }: Pick<Post, 'title' | 'realm' | 'description'>) => {
+  return client.put(`/posts/${postId}`, { title, description, realm });
 };

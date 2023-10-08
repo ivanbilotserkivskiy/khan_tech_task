@@ -1,0 +1,52 @@
+.icon {
+  width: 40px;
+  height: 40px;
+  background-position: center;
+  background-size: 40%;
+  background-repeat: no-repeat;
+  border-radius: 48px;
+  background-color: var(--main-bg-color);
+}
+
+.icon_close {
+  background-image: url('../../../../../../images//icons/Arrow/Down.svg');
+}
+.icon_open {
+  background-image: url('../../../../../../images//icons/Arrow/Up.svg');
+}
+
+.content {
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  border: 2px solid var(--accent-color);
+  border-radius: 20px;
+}
+
+.wraper:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.title {
+  margin: 0 auto;
+  color: var(--dark-color);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+@media screen and (min-width: 620px) {
+  .content {
+    width: 600px;
+  }
+}
+@media screen and (min-width: 920px) {
+  .content {
+    width: 874px;
+  }
+}
+@media screen and (min-width: 1320px) {
+  .content {
+    width: 1280px;
+  }
+}
