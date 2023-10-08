@@ -1,5 +1,6 @@
 .logo {
   margin-bottom: 1.25rem;
+  width: 160px;
 }
 
 .text {
@@ -7,4 +8,36 @@
   color: var(--main-bg-color);
   font-size: .875rem;
   line-height: 1.625rem;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+
+@media screen and (min-width: 680px) {
+
+}
+
+@media screen and (min-width: 920px) {
+  .text {
+    max-width: 200px;
+  }
+
+  .container {
+    max-width: 180px;
+    margin: 0;
+  }
+}
+@media screen and (min-width: 1320px) {
+  .logo {
+    width: 278px;
+  }
+  .text {
+    max-width: 312px;
+  }
+
+  .container {
+    max-width: 312px;
+  }
 }

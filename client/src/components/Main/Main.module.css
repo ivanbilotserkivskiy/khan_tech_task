@@ -10,17 +10,20 @@
 }
 
 .top {
+  margin: 0 auto;
   margin-bottom: 72px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   gap: 23px;
 }
 
 .snapshot_title {
+  text-align: center;
   margin-bottom: 16px;
   color: var(--dark-color);
-  font-size: 30px;
-  line-height: 56px;
+  font-size: 1.875rem;
+  line-height: 3.5rem;
   font-weight: 500;
 }
 
@@ -39,11 +42,28 @@
 }
 
 
+@media screen and (min-width: 680px) {
+
+}
+
+
 @media screen and (min-width: 920px) {
   .bottom {
     grid-template-columns: repeat(2, 424px);
   }
+  .top {
+    flex-direction: row;
+  }
+
+  .right {
+    width: 600px;
+  }
+
+  .right_fullscreen {
+    width: 872px;
+  }
 }
+
 @media screen and (min-width: 1320px) {
   .bottom {
     grid-template-columns: repeat(3, 424px);

@@ -9,14 +9,14 @@ export const Footer = () => {
       <div className={FooterStyles.footer_container}>
         <div className={FooterStyles.content}>
       {menuOptions.map(option => (
-        <div key={option.title} className={FooterStyles.menu}>
+        <article key={option.title} className={FooterStyles.menu}>
           <h3 className={FooterStyles.title}>{option.title}</h3>
           <FooterMenu options={option.children} />
-        </div>
+        </article>
       ))}
       <FooterLogo />
       </div>
-      <p className={FooterStyles.rights}>©2021 All Rights Reserved</p>
+        <p className={FooterStyles.rights}>©2021 All Rights Reserved</p>
       </div>
     </footer>
   )

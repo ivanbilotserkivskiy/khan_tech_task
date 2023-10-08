@@ -25,7 +25,8 @@ export const PostDetail:React.FC<Props> = ({ details=true, fullscrean=false }) =
         />
       </div>
       <div className={cn({
-        [PostDetailStyles.right]: details,
+        [PostDetailStyles.right]: details && !fullscrean,
+        [PostDetailStyles.right_fullscreen]: details && fullscrean,
         [PostDetailStyles.bottom]: !details,
       })}>
         <p className={PostDetailStyles.realm}>Pharmaceuticals</p>

@@ -1,7 +1,10 @@
 .article {
-  max-width: 361px;
+  width: 600px;
+  
+  box-sizing: border-box;
   padding: 16px 32px;
   background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .article:not(:last-child) {
@@ -23,4 +26,24 @@
   font-weight: 500;
   font-size: .875rem;
   line-height: 1rem;
+}
+
+@media screen and (min-width: 680px) {
+  .bottom {
+    grid-template-columns: repeat(2, 424px);
+  }
+}
+
+
+@media screen and (min-width: 920px) {
+  .bottom {
+    grid-template-columns: repeat(2, 424px);
+  }
+  .article {
+    max-width: 361px;
+    padding: 16px 32px;
+    background-repeat: no-repeat;
+  }
+}
+@media screen and (min-width: 1320px) {
 }
