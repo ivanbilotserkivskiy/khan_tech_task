@@ -1,8 +1,13 @@
 import { Post } from '../types/Post';
+import { Total } from '../types/Total';
 import { client } from '../utils/fetchClient';
 
 export const getPosts = (query:string = '') => {
   return client.get<Post[]>(`/posts${query}`);
+}
+
+export const getTotal = () => {
+  return client.get<Total>('/count-posts');
 }
 
 export const getOnePost = (query:string = '') => {

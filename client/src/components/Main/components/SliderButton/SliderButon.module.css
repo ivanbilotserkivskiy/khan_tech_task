@@ -1,0 +1,55 @@
+.page_link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--accent-color);
+  background-color: var(--main-bg-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 48px;
+  margin: 0 4px;
+  cursor: pointer;
+}
+.logo {
+  display: flex;
+  width: 40px;
+  height: 40px;
+}
+
+.page_link:first-child {
+  margin-right: 12px;
+  border: 1px solid var(--accent-color);
+  background-image: url('../../../../images/icons/Arrow/Left.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30%;
+}
+
+.page_link:last-child {
+  margin-left: 12px;
+  border: 1px solid var(--accent-color);
+  background-image: url('../../../../images/icons/Arrow/Right.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 30%;
+}
+
+.page_link:hover {
+  border: 1px solid var(--dark-color);
+}
+
+.page_link:not(:first-child):not(:last-child).active {
+  background-color: var(--accent-color);
+  color: var(--main-bg-color);
+  
+}
+
+.page_link.disabled {
+  border: 1px solid var(--accent-color);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.page_link.disabled path {
+  fill: var(--accent-color);
+}

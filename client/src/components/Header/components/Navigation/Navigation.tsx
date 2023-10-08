@@ -6,8 +6,8 @@ export const Navigation = () => {
   return (
     <nav className={NavigationStyles.nav}>
           <ul className={NavigationStyles.list}>
-            {navigationOptions.map((option: NavigationOption) => (
-              <NavigationItem key={option.title} option={option}/>
+            {navigationOptions.map((option: NavigationOption, index) => (
+              <NavigationItem key={index} option={option}/>
             ))}
             {/* <li className={NavigationStyles.item}>
               <a href='#home' className={NavigationStyles.nav_link}>Home</a>
