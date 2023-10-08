@@ -181,6 +181,7 @@ app.get('/posts', async (req: Request, res: Response) => {
   const page = +(req.query.page as string) || 1;
   const limit = +(req.query.limit as string) || 6;
   const offset = (page - 1) * limit;
+  const orderBy = (req.query.orderBy as string) || 'id'
 
   const postId = +(req.query.postId as string) || null;
 
@@ -235,6 +236,7 @@ app.get('/posts', async (req: Request, res: Response) => {
       const posts = await Post.findAll({
         offset,
         limit,
+        order: [[orderBy, 'DESC']],
         include: [
           {
             model: User,
