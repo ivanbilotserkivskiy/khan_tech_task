@@ -6,10 +6,14 @@ import Post from './models/Post.js';
 import Permission from './models/Permission.js';
 import bodyParser from 'body-parser';
 import bcrypt from 'bcrypt';
+import cors from 'cors';
+import { postData } from './seed_data/postData.js'
+import { Op } from 'sequelize';
 
 dotenv.config();
 
 const app: Express = express();
+app.use(cors())
 app.use(bodyParser.json());
 app.use(express.static('public'))
 const port = process.env.PORT || 3004;
@@ -23,6 +27,26 @@ app.get('/users', async (req: Request, res: Response) => {
     return 'SOmething went wrong with getting users'
   }
 });
+
+app.delete('/users/:userId', async (req: Request, res: Response) => {
+  const userId = +(req.params.userId);
+
+  try {
+    await User.destroy({ where: 
+      {
+        id: userId
+      }
+    });
+
+    res.send({
+      "message": "user was deleted successfuly"
+    })
+  }
+
+  catch {
+    res.sendStatus(404);
+  }
+})
 
 app.post('/register/user', async (req: Request, res: Response) => {
   const { username, password } = req.body;
@@ -139,15 +163,96 @@ app.post('/login/user', async (req: Request, res: Response) => {
 
 })
 
-app.get('/posts', async (req: Request, res: Response) => {
+app.post('/prepared-posts', async (req:Request, res: Response) => {
   try {
-    const posts = await Post.findAll();
-    res.send(posts);
+    postData.forEach(async post => {
+      const data = await Post.build(post);
+
+      data.save();
+    }) 
+    res.sendStatus(200);
   }
   catch {
-    return 'SOmething went wrong with getting posts'
+    res.sendStatus(403);
   }
 })
+
+app.get('/posts', async (req: Request, res: Response) => {
+  const page = +(req.query.page as string) || 1;
+  const limit = +(req.query.limit as string) || 6;
+  const offset = (page - 1) * limit;
+
+  const postId = +(req.query.postId as string) || null;
+
+  if (limit === 1 && !postId) {
+
+    try {
+      const randomPost = await Post.findOne({
+        order: sequelize.random(),
+        include: [
+          {
+            model: User,
+            as: 'users',
+            attributes: ['username']
+          } 
+        ]
+      })
+
+      res.send(randomPost);
+    }
+
+    catch {
+      res.sendStatus(404);
+    }
+
+  
+  } else if (postId) {
+    try {
+        const randomPost = await Post.findOne({
+        order: sequelize.random(),
+        where: {
+          id: {
+            [Op.not]: postId
+          }
+        },
+        include: [
+          {
+            model: User,
+            as: 'users',
+            attributes: ['username']
+          } 
+        ]
+      })
+
+      res.send(randomPost)
+    }
+
+    catch {
+      res.sendStatus(404)
+    }
+  } else {
+    try {
+      const posts = await Post.findAll({
+        offset,
+        limit,
+        include: [
+          {
+            model: User,
+            as: 'users',
+            attributes: ['username']
+          } 
+        ]
+      });
+      
+      res.send(posts)
+    }
+    catch {
+      return 'SOmething went wrong with getting posts'
+    }
+  }
+
+})
+
 
 app.post('/posts', async (req: Request, res: Response) => {
   const { title, userId, realm, description, readTime } = req.body;

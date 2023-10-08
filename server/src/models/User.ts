@@ -1,8 +1,10 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../connection/index.js';
+import Post from './Post.js';
 
 class User extends Model {
   password: any;
+  username: any;
 }
 
 User.init({
@@ -21,5 +23,14 @@ User.init({
   modelName: 'User',
   tableName: 'user',
 });
+
+User.hasMany(Post, {
+  foreignKey: 'userId',
+  as: 'users'
+})
+Post.belongsTo(User, {
+  foreignKey: 'userId',
+  as: 'users'
+})
 
 export default User;
