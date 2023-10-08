@@ -1,5 +1,6 @@
 import { PostDetail } from "./components/PostDetail"
-import { PostSnapshot } from "./components/PostSnapshot";
+import { PostShort } from "./components/PostShort";
+import { PostSnapshotList } from "./components/PostSnapshotList";
 import MainStyles from './Main.module.css';
 
 export const Main = () => {
@@ -13,9 +14,7 @@ export const Main = () => {
 
           <div className={MainStyles.top_right}>
             <h3 className={MainStyles.snapshot_title}>Our Latest News</h3>
-            <PostSnapshot />
-            <PostSnapshot />
-            <PostSnapshot />
+            <PostSnapshotList />
           </div>
         </section>
 
@@ -24,12 +23,7 @@ export const Main = () => {
         </section>
 
         <section className={MainStyles.bottom}>
-          <PostDetail details={false} />
-          <PostDetail details={false} />
-          <PostDetail details={false} />
-          <PostDetail details={false} />
-          <PostDetail details={false} />
-          <PostDetail details={false} />
+          <PostShort />
         </section>
       </section>
     </main>
