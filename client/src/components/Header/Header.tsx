@@ -15,7 +15,6 @@ export const Header = () => {
               <span className={HeaderStyles.call_number}>(514) 543-9936</span>
             </a>
         </div>
-
         <div className={HeaderStyles.right}>
           <Navigation />
         </div>

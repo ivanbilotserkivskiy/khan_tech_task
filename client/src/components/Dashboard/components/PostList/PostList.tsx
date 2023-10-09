@@ -12,9 +12,8 @@ export const PostList = () => {
       const postFromServer = await getPosts();
       
       setState(prev => ({ ...prev, posts: postFromServer }))
-    }
-    catch {
-
+    } catch(err) {
+       console.log(err)
     }
   }
 

@@ -67,7 +67,6 @@ export const Pagination = () => {
             disabled: state.page >= totalPages,
           })}
         >
-
         </div>
       </SliderButton>
     </nav>

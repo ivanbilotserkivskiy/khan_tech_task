@@ -11,7 +11,6 @@ const initialState: SharedStateType = {
   users: [],
 };
 
-
 const useMyState = () => useState(initialState);
 
 export const { Provider: SharedStateProvider, useTracked: useSharedState } =

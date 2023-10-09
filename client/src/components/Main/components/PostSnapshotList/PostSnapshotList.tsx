@@ -4,7 +4,6 @@ import { Post } from "../../../../types/Post"
 import { getPosts } from "../../../../api/posts";
 
 export const PostSnapshotList = () => {
-
   const [snapshotData, setSnapshotData] = useState<Post[]>([]);
 
   useEffect(() => {

@@ -11,7 +11,6 @@ type Props = {
 export const Post: React.FC<Props> = ({ post }) => {
   const [isOpened, setIsOpened] = useState(false)
 
-
   return (
     <section className={PostStyles.wraper}>
       <article className={PostStyles.content}>
@@ -24,7 +23,6 @@ export const Post: React.FC<Props> = ({ post }) => {
         </button>
         <h3 className={PostStyles.title}>{post.title}</h3>
       </article>
-
       {
         isOpened
           ? (

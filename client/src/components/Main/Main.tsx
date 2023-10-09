@@ -15,13 +15,10 @@ export const Main = () => {
     try {
       const allPosts = await getPosts(`/?page=${state.page}&limit=${state.perPage}`);
       setState((prev) => ({ ...prev, posts: allPosts}));
-
+    } catch(err) {
+      console.log(err)
+      }
     }
-
-    catch {
-
-    }
-  }
   useEffect(() => {
     fetchPosts();
   }, [state.page])
@@ -29,26 +26,20 @@ export const Main = () => {
   const fetchData = async() => {
     try {
       const firstPost = await getOnePost('?limit=1')
-
       setState(prev => ({ ...prev, randomPost: firstPost}))
 
       const secondPost = await getOnePost(`?postId=${firstPost.id}`)
-
       setState(prev => ({ ...prev, largePost: secondPost}))
-      const totalPosts = await getTotal();
 
+      const totalPosts = await getTotal();
       setState(prev => ({ ...prev, total: totalPosts.total}))
 
       const allPosts = await getPosts(`/?page=${state.page}&limit=${state.perPage}`);
-
       setState((prev) => ({ ...prev, posts: allPosts}));
-
+    } catch(err) {
+      console.log(err)
+      }
     }
-
-    catch {
-
-    }
-  }
   
   useEffect(() => {
     fetchData();

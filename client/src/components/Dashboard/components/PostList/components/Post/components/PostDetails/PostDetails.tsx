@@ -31,10 +31,8 @@ export const PostDetails:React.FC<Props> = ({ post }) => {
   const deletePostFromServer = async (postId: number) => {
     try {
       await deletePost(postId);
-    }
-
-    catch {
-
+    } catch(err) {
+       console.log(err)
     }
   } 
 
@@ -53,8 +51,8 @@ export const PostDetails:React.FC<Props> = ({ post }) => {
       const updatedPosts = await getPosts();
       
       setState(prev => ({ ...prev, posts: updatedPosts}))
-    } catch {
-      console.log("Failed to update data")
+    } catch(err) {
+      console.log(err)
     }
   }
 

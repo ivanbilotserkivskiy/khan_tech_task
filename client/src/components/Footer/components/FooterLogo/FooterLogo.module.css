@@ -9,14 +9,8 @@
   font-size: .875rem;
   line-height: 1.625rem;
 }
-
 .container {
   margin: 0 auto;
-}
-
-
-@media screen and (min-width: 680px) {
-
 }
 
 @media screen and (min-width: 920px) {
