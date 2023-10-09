@@ -20,6 +20,10 @@
   font-weight: 500;
 }
 
+.title:hover {
+  cursor: pointer;
+}
+
 .date {
   margin-bottom: 2px;
   color: var(--main-bg-color);

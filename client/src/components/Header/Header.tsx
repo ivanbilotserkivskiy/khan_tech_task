@@ -7,7 +7,7 @@ export const Header = () => {
     <header className={HeaderStyles.header}>
       <div className={HeaderStyles.content}>
         <div className={HeaderStyles.left}>
-          <a href={logo} className={HeaderStyles.logo_link}>
+          <a href={'/'} className={HeaderStyles.logo_link}>
             <img className={HeaderStyles.logo} src={logo} alt="Khan-tech logo" />
           </a>
             <a className={HeaderStyles.call} href="tel:+(514) 543-9936">

@@ -47,6 +47,7 @@
 
 .bottom {
   width: 424px;
+  background-color: var(--cards-bg-color);
 }
 
 .realm {
@@ -61,6 +62,12 @@
   font-weight: 500;
   font-size: 1.25rem;
   line-height: 2.25rem;
+  transition: 300ms;
+}
+
+.title:hover {
+  color: var(--accent-color);
+  cursor: pointer;
 }
 
 .text {

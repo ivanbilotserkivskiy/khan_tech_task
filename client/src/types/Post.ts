@@ -9,5 +9,6 @@ export type Post = {
   readTime: number,
   published: string,
   image: string,
-  users: User
+  users: User,
+  file?: File | null, 
 }

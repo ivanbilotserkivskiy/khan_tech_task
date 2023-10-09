@@ -22,8 +22,8 @@ export const getPostsById = (postId: number) => {
   return client.get<Post[]>(`/posts?userId=${postId}`);
 };
 
-export const addPost = ({ title, description, readTime, realm, userId }: Omit<Post, 'id' | 'published' | 'users' | 'image'>) => {
-  return client.post<Post>('/posts', { title, description, readTime, realm, userId });
+export const addPost = (formData: FormData) => {
+  return client.postFormData<Post>('/posts', formData);
 };
 
 export const deletePost = (postId: number) => {

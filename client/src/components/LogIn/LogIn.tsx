@@ -7,8 +7,6 @@ import { Navigate } from 'react-router-dom';
 
 const cookies = new Cookies(null, { path: '/' });
 
-// eslint-disable-next-line react-hooks/rules-of-hooks
-
 export const LogIn = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
@@ -47,8 +45,6 @@ export const LogIn = () => {
   }
 
   return (
-  <section className={LogInStyles.section}>
-
     <div className={LogInStyles.content}>
       {
         isLogged
@@ -78,6 +74,5 @@ export const LogIn = () => {
           </button>
       </form>
     </div>
-  </section>
   )
 }
