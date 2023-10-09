@@ -9,6 +9,7 @@ import { Dashboard } from './components/Dashboard';
 import { Main } from './components/Main';
 import { LogIn } from './components/LogIn';
 import { PrivateRoute } from './utils/PrivateRout';
+import { NotFound } from './components/NotFound';
 
 export const Root = () => (
   <Router>
@@ -23,7 +24,7 @@ export const Root = () => (
         <Route path="login" element={<LogIn />}>
           <Route index element={<LogIn />} />
         </Route>
-        <Route path="*" element={<h1 className="title">Page not found</h1>} />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   </Router>

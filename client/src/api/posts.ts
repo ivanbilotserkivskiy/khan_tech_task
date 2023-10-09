@@ -16,7 +16,7 @@ export const getToken = (data: any) => {
 }
 
 export const getTotal = () => {
-  return client.get<Total>('/count-posts');
+  return client.get<Total>('/posts/count');
 }
 
 export const getOnePost = (query:string = '') => {
