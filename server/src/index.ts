@@ -1,5 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
+import fileUpload, { UploadedFile } from 'express-fileupload';
+import fs from 'fs';
 import sequelize from './connection/index.js';
 import User from './models/User.js';
 import Post from './models/Post.js';
@@ -304,15 +306,34 @@ app.get('/posts', async (req: Request, res: Response) => {
 })
 
 
-app.post('/posts', async (req: Request, res: Response) => {
+app.post('/posts', fileUpload({ createParentPath: true }), async (req: Request, res: Response) => {
   const { title, userId, realm, description, readTime } = req.body;
+  const fileData = req.files?.file as UploadedFile;
+  console.log(req.body);
+  if (fileData.name) {
+    console.log(fileData.name)
+  }
+  const filePath = `/public/images/${fileData.name}`;
+  const dbFilePath = `/images/${fileData.name}`
+  
+  if (fileData) {
+    fileData.mv(filePath, (err: any) => {
+    if(err) {
+      return res.sendStatus(404)
+    }
+  })
+}
+  res.send(fileData)
+
+
   try {
     const newPost = await Post.build({
       title,
-      userId,
+      userId: +userId,
       realm,
       description,
-      readTime,
+      readTime: +readTime,
+      image: dbFilePath,
     })
     newPost.save()
 
