@@ -8,4 +8,5 @@ export type NavigationOption = {
   type: OptionType,
   priority: OptionPriority,
   children?: NavigationOption[],
+  active?: boolean
 }

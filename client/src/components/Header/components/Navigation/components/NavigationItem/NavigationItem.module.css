@@ -3,6 +3,27 @@
   font-size: .875rem;
   font-weight: 500;
   line-height: 1.5rem;
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.nav_link:hover {
+  color: var(--accent-color);
+}
+
+.active {
+  position: relative;
+  color: var(--accent-color);
+}
+
+.active::after {
+  position: absolute;
+  content: '';
+  height: 3px;
+  width: 100%;
+  background-color: var(--accent-color);
+  left: 0;
+  bottom: -37px;
 }
 
 .item {
@@ -28,7 +49,7 @@
   background-repeat: no-repeat;
   background-position-y: bottom;
   background-size: contain;
-
+  cursor: pointer;
 }
 
 .dropdown_up {
@@ -59,6 +80,12 @@
   color: inherit;
   display: flex;
   padding: .75rem 0 .75rem .875rem;
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.dropdown_link:hover {
+  color: var(--accent-color);
 }
 
 .dropdown_start {

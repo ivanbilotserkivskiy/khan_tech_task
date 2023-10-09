@@ -78,6 +78,7 @@ export const navigationOptions: NavigationOption[] = [
     href: '/blog',
     type: OptionType.Item,
     priority: OptionPriority.Main,
+    active: true,
   },
   { 
     title: 'Contact',

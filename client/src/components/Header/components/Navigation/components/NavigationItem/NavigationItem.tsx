@@ -15,6 +15,7 @@ export const NavigationItem:React.FC<Props> = ({ option }) => {
       <li className={cn({
         [NavigationItemStyles.item]: option.priority === 'main',
         [NavigationItemStyles.dropdown_item]: option.priority !== 'main',
+
   })}>
         <div className={cn({
           [NavigationItemStyles.dropdown_nest_top]: option.priority !== 'main',
@@ -59,6 +60,7 @@ export const NavigationItem:React.FC<Props> = ({ option }) => {
         <a href={option.href} className={cn({
           [NavigationItemStyles.nav_link]: option.priority === 'main',
           [NavigationItemStyles.dropdown_link]: option.priority !== 'main',
+          [NavigationItemStyles.active]: option.active
         })}>{option.title}</a>
       </li>
     )

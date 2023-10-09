@@ -6,6 +6,10 @@ export const getPosts = (query:string = '') => {
   return client.get<Post[]>(`/posts${query}`);
 }
 
+export const getToken = (data: any) => {
+  return client.post<any>('/login/admin', data);
+}
+
 export const getTotal = () => {
   return client.get<Total>('/count-posts');
 }

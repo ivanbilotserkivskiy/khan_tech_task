@@ -1,0 +1,25 @@
+.content {
+  padding: 32px 16px;
+  display: flex;
+  flex: 1 1 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  padding: 5px 8px;
+}
+
+.button {
+  margin-top: 12px;
+}
+
+.section {
+  display: flex;
+  flex: 1 1 100%;
+}

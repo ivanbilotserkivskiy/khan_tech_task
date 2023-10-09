@@ -28,6 +28,12 @@
   font-weight: 500;
   font-size: 1.25rem;
   line-height: 2.25rem;
+  transition: 300ms;
+}
+
+.title:hover {
+  cursor: pointer;
+  color: var(--accent-color);
 }
 
 .text {

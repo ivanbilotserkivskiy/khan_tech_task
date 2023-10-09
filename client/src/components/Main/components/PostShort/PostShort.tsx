@@ -1,6 +1,5 @@
 import { Post } from "./components/Post/Post"
 import PostShortStyles from './PostShort.module.css'
-import { Post as PostType} from '../../../../types/Post'
 import { useSharedState } from "../../../../store/store";
 
 

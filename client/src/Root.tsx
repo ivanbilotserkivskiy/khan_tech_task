@@ -7,6 +7,8 @@ import {
 import App from './App';
 import { Dashboard } from './components/Dashboard';
 import { Main } from './components/Main';
+import { LogIn } from './components/LogIn';
+import { PrivateRoute } from './utils/PrivateRout';
 
 export const Root = () => (
   <Router>
@@ -14,8 +16,11 @@ export const Root = () => (
       <Route path="/" element={<App />}>
         <Route path="home" element={<Navigate to="/" replace />} />
         <Route index element={<Main />} />
-        <Route path="dashboard" element={<Dashboard />}>
+        <Route path="dashboard" element={<PrivateRoute />}>
           <Route index element={<Dashboard />} />
+        </Route>
+        <Route path="login" element={<LogIn />}>
+          <Route index element={<LogIn />} />
         </Route>
         <Route path="*" element={<h1 className="title">Page not found</h1>} />
       </Route>

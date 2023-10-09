@@ -4,7 +4,6 @@ import { SharedStateType } from '../types/SharedStateType'
 const initialState: SharedStateType = {
   randomPost: null,
   largePost: null,
-  text: 'hello',
   posts: [],
   page: 1,
   perPage: 6,
