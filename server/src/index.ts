@@ -23,8 +23,9 @@ const port = process.env.PORT || 3004;
 
 app.get('/users', async (req: Request, res: Response) => {
   try {
-    const users = await User.findAll()
-    res.send(users);
+    const users = await User.findAll();
+    const prepraredUsers = users.map(u => ({id: u.dataValues.id, username: u.dataValues.username}))
+    res.send(prepraredUsers);
   }
   catch {
     return 'SOmething went wrong with getting users'
@@ -183,6 +184,10 @@ app.post('/login/admin', async(req: Request, res: Response) => {
     return res.sendStatus(401);
   }
 
+  if(foundUser.dataValues.permission === 2) {
+    return res.sendStatus(403)
+  }
+
   const match = await bcrypt.compare(password, foundUser.dataValues.password);
 
   if (match) {
@@ -309,10 +314,7 @@ app.get('/posts', async (req: Request, res: Response) => {
 app.post('/posts', fileUpload({ createParentPath: true }), async (req: Request, res: Response) => {
   const { title, userId, realm, description, readTime } = req.body;
   const fileData = req.files?.file as UploadedFile;
-  console.log(req.body);
-  if (fileData.name) {
-    console.log(fileData.name)
-  }
+
   const filePath = `/public/images/${fileData.name}`;
   const dbFilePath = `/images/${fileData.name}`
   
@@ -323,8 +325,6 @@ app.post('/posts', fileUpload({ createParentPath: true }), async (req: Request, 
     }
   })
 }
-  res.send(fileData)
-
 
   try {
     const newPost = await Post.build({
@@ -360,12 +360,25 @@ app.delete('/posts/:id', async (req: Request, res: Response) => {
   }
 })
 
-app.put('/posts/:id', async (req: Request, res: Response) => {
+app.put('/posts/:id', cors(), fileUpload({ createParentPath: true }), async (req: Request, res: Response) => {
   const itemIdToUpdate = req.params.id;
-  
+  console.log(req.files)
   const { title, description, realm } = req.body
+  const fileData = req.files?.file as UploadedFile;
+
+  const filePath = `/public/images/${fileData.name}`;
+  const dbFilePath = `/images/${fileData.name}`
+  
+  if (fileData) {
+    fileData.mv(filePath, (err: any) => {
+    if(err) {
+      return res.sendStatus(404)
+    }
+  })
+}
+
   try {
-    const item = await Post.update({ title, description, realm }, {
+    const item = await Post.update({ title, description, realm, image: dbFilePath }, {
       where: {
         id: itemIdToUpdate,
       }
