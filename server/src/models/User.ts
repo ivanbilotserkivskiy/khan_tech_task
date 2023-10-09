@@ -5,6 +5,7 @@ import Post from './Post.js';
 class User extends Model {
   password: any;
   username: any;
+  id: any;
 }
 
 User.init({
@@ -16,6 +17,7 @@ User.init({
   permissionId: DataTypes.INTEGER,
   username: DataTypes.STRING,
   password: DataTypes.STRING,
+  refreshToken: DataTypes.STRING,
 }, {
   createdAt: false,
   updatedAt: false,

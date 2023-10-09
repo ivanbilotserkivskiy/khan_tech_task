@@ -9,6 +9,7 @@ import bcrypt from 'bcrypt';
 import cors from 'cors';
 import { postData } from './seed_data/postData.js'
 import { Op } from 'sequelize';
+import { createTokens } from './utils/accesToken.js';
 
 dotenv.config();
 
@@ -163,6 +164,40 @@ app.post('/login/user', async (req: Request, res: Response) => {
 
 })
 
+app.post('/login/admin', async(req: Request, res: Response) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({
+      "message": "username and password are required"
+    })
+  }
+  const foundUser = await User.findOne({
+    where: {
+      username: username,
+    }
+  })
+  if(!foundUser) {
+    return res.sendStatus(401);
+  }
+
+  const match = await bcrypt.compare(password, foundUser.dataValues.password);
+
+  if (match) {
+    const { accessToken, refreshToken } = createTokens(foundUser)
+
+    await User.update({refreshToken}, {
+      where: {
+        id: foundUser.dataValues.id
+      }
+    })
+    res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 72 * 60 * 60 * 1000 })
+    res.send({accessToken});
+  } else {
+    res.sendStatus(401);
+  }
+})
+
 app.post('/prepared-posts', async (req:Request, res: Response) => {
   try {
     postData.forEach(async post => {
@@ -174,6 +209,19 @@ app.post('/prepared-posts', async (req:Request, res: Response) => {
   }
   catch {
     res.sendStatus(403);
+  }
+})
+
+app.get('/count-posts', async (req: Request, res: Response) => {
+  try {
+    const total = await Post.count();
+
+    res.send({
+      total
+    });
+  }
+  catch {
+    res.sendStatus(404);
   }
 })
 
@@ -294,9 +342,9 @@ app.delete('/posts/:id', async (req: Request, res: Response) => {
 app.put('/posts/:id', async (req: Request, res: Response) => {
   const itemIdToUpdate = req.params.id;
   
-  const { title } = req.body
+  const { title, description, realm } = req.body
   try {
-    const item = await Post.update({ title }, {
+    const item = await Post.update({ title, description, realm }, {
       where: {
         id: itemIdToUpdate,
       }
