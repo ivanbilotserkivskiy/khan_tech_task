@@ -1,0 +1,27 @@
+.section {
+  display: grid;
+  grid-template-columns: repeat(1, 424px);
+  row-gap: 72px;
+  column-gap: 24px;
+}
+
+.section_short {
+  flex-direction: column;
+}
+
+@media screen and (min-width: 920px) {
+  .section {
+    grid-template-columns: repeat(2, 424px);
+  }
+}
+
+@media screen and (min-width: 1320px) {
+  .section {
+    max-width: 1320px;
+    flex-direction: row;
+    grid-template-columns: repeat(3, 424px);
+  }
+  .section_short {
+    flex-direction: column;
+  }
+}
