@@ -1,32 +1,45 @@
-import { useState } from 'react'
 import { baseURL } from "../../../../utils/baseURL"
 import CreatePostStyles from './CreatePost.module.css'
-import { addPost } from '../../../../api/posts'
+import { addPost, getPosts } from '../../../../api/posts'
+import { useSharedState } from '../../../../store/store'
+import React, { useState } from "react"
 
 export const CreatePost = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [state, setState] = useSharedState();
+
   const [formData, setFormData] = useState({
     title: '',
-    realm: '',
     description: '',
+    realm: '',
   })
 
-  const sendFormData = () => {
-    addPost({...formData, readTime: 6, userId: 1})
+
+  const submitPost = async (event: React.FormEvent) => {
+    event.preventDefault();
+   try{ 
+    await addPost({...formData, readTime: 6, userId: 1})
+
+    const updatedPosts = await getPosts();
+
+    setState(prev => ({ ...prev, posts: updatedPosts}))
   }
+  catch {
+
+  }
+}
 
   const changeFormData = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-    setFormData(prevData => {
-      return {
-        ...prevData,
-        [event.target.name]: event.target.value,
-      }
-    })
+      setFormData(prev => ({
+        ...prev,
+        [event.target.name]: event.target.value
+      }))
   }
 
   return (
     <article className={CreatePostStyles.content}>
       <form
-        onSubmit={() => sendFormData}
+        onSubmit={submitPost}
         className={CreatePostStyles.form}
         action={`${baseURL}/posts`}
         method="POST"

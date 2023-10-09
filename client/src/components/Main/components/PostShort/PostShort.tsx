@@ -1,15 +1,15 @@
 import { Post } from "./components/Post/Post"
 import PostShortStyles from './PostShort.module.css'
 import { Post as PostType} from '../../../../types/Post'
+import { useSharedState } from "../../../../store/store";
 
-type Props = {
-  posts: PostType[];
-}
 
-export const PostShort:React.FC<Props> = ({ posts }) => {
+export const PostShort:React.FC = () => {
+  const [state] = useSharedState();
+
   return (
     <article className={`${PostShortStyles.section} ${PostShortStyles.section_short}`}>
-      {posts.map((post) => (<Post key={post.id} post={post}/>))}
+      {state.posts.map((post) => (<Post key={post.id} post={post}/>))}
     </article>
   )
 }

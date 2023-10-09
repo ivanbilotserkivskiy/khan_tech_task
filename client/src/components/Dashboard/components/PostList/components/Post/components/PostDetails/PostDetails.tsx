@@ -1,29 +1,30 @@
-import { useState } from 'react';
 import { baseURL } from "../../../../../../../../utils/baseURL";
 import { Post as PostType } from '../../../../../../../../types/Post';
-import { deletePost, updatePost } from '../../../../../../../../api/posts';
+import { deletePost, getPosts, updatePost } from '../../../../../../../../api/posts';
 import PostDetailStyles from './PostDetails.module.css';
+import { useSharedState } from '../../../../../../../../store/store';
+import { useState } from "react";
 
 type Props = {
   post: PostType,
-  fetchData: () => void
 }
 
-export const PostDetails:React.FC<Props> = ({ post, fetchData }) => {
+export const PostDetails:React.FC<Props> = ({ post }) => {
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [state, setState] = useSharedState();
 
   const [formData, setFormData] = useState({
     title: post.title,
-    realm: post.realm,
     description: post.description,
+    realm: post.realm,
   })
 
   const changeFormData = (event:  React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-    setFormData(prevFormData => {
-      return {
-        ...prevFormData,
-        [event.target.name]: event.target.value,
-      }
-    })
+    setFormData(prev => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }))
   }
 
   const deletePostFromServer = async (postId: number) => {
@@ -36,19 +37,21 @@ export const PostDetails:React.FC<Props> = ({ post, fetchData }) => {
     }
   } 
 
-  const submitFormData = (event: React.FormEvent) => {
+  const submitFormData = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    updatePost(post.id, {...formData})
+    await updatePost(post.id, {...formData})
 
-    fetchData();
+    const updatedPosts = await getPosts();
+
+    setState(prev => ({ ...prev, posts: updatedPosts}))
   }
 
 
   return (
     <article className={PostDetailStyles.content}>
       <button
-        onClick={() => deletePost(post.id)} 
+        onClick={() => deletePostFromServer(post.id)} 
         className={PostDetailStyles.delete}
       >
         Delete

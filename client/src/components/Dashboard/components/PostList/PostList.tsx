@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Post } from "./components/Post"
 import PostListStyles from './PostList.module.css'
-import { Post as PostType} from '../../../../types/Post'
 import { getPosts } from '../../../../api/posts'
+import { useSharedState } from '../../../../store/store'
 
 export const PostList = () => {
-  const [posts, setPosts] = useState<PostType[]>([])
+  const [state, setState] = useSharedState();
 
   const fetchPosts = async () => {
     try {
       const postFromServer = await getPosts();
       
-      setPosts(postFromServer)
+      setState(prev => ({ ...prev, posts: postFromServer }))
     }
     catch {
 
@@ -24,8 +24,8 @@ export const PostList = () => {
   
   return (
     <section className={PostListStyles.content}>
-      {posts.map(post => (
-        <Post key={post.id} post={post} fetchData={() => fetchPosts}/>
+      {state.posts.map(post => (
+        <Post key={post.id} post={post}/>
       ))}
     </section>
   )

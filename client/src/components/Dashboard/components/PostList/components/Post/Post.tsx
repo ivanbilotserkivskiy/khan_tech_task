@@ -6,10 +6,9 @@ import { Post as PostType } from '../../../../../../types/Post';
 
 type Props = {
   post: PostType,
-  fetchData: () => void
 }
 
-export const Post: React.FC<Props> = ({ post, fetchData }) => {
+export const Post: React.FC<Props> = ({ post }) => {
   const [isOpened, setIsOpened] = useState(false)
 
 
@@ -29,7 +28,7 @@ export const Post: React.FC<Props> = ({ post, fetchData }) => {
       {
         isOpened
           ? (
-              <PostDetails key={post.id} post={post} fetchData={() => fetchData}/>
+              <PostDetails key={post.id} post={post}/>
             )
           : null
       }

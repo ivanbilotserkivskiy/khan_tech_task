@@ -1,25 +1,20 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { PostDetail } from "./components/PostDetail"
 import { PostShort } from "./components/PostShort";
 import { PostSnapshotList } from "./components/PostSnapshotList";
 import MainStyles from './Main.module.css';
-import { Post } from '../../types/Post';
 import { getOnePost, getPosts, getTotal } from '../../api/posts';
 import { Pagination } from './components/Pagination';
+import { useSharedState } from '../../store/store';
 
 export const Main = () => {
 
-  const [randomPost, setRandomPost] = useState<Post | null>(null);
-  const [largePost, setLargePost] = useState<Post |null>(null);
-  const [total, setTotal] = useState<number>(0);
-  const [page, setPage] = useState<number>(1);
-  const [perPage, setPerpage] = useState<number>(6);
-  const [posts, setPosts] = useState<Post[]>([])
+  const [state, setState] = useSharedState();
   
   const fetchPosts = async () => {
     try {
-      const allPosts = await getPosts(`/?page=${page}&limit=${perPage}`);
-      setPosts(allPosts);
+      const allPosts = await getPosts(`/?page=${state.page}&limit=${state.perPage}`);
+      setState((prev) => ({ ...prev, posts: allPosts}));
 
     }
 
@@ -29,25 +24,25 @@ export const Main = () => {
   }
   useEffect(() => {
     fetchPosts();
-  }, [page])
+  }, [state.page])
 
   const fetchData = async() => {
     try {
-      const totalPosts = await getTotal();
-
-      setTotal(totalPosts.total);
-
-      const allPosts = await getPosts(`/?page=${page}&limit=${perPage}`);
-
-      setPosts(allPosts);
-
       const firstPost = await getOnePost('?limit=1')
 
-      setRandomPost(firstPost)
+      setState(prev => ({ ...prev, randomPost: firstPost}))
 
       const secondPost = await getOnePost(`?postId=${firstPost.id}`)
 
-      setLargePost(secondPost);
+      setState(prev => ({ ...prev, largePost: secondPost}))
+      const totalPosts = await getTotal();
+
+      setState(prev => ({ ...prev, total: totalPosts.total}))
+
+      const allPosts = await getPosts(`/?page=${state.page}&limit=${state.perPage}`);
+
+      setState((prev) => ({ ...prev, posts: allPosts}));
+
     }
 
     catch {
@@ -63,8 +58,8 @@ export const Main = () => {
     <main className={MainStyles.main}>
       <section className={MainStyles.content}>
         <section className={MainStyles.top}>
-              {randomPost
-                ? (<PostDetail post={randomPost}/>)
+              {state.randomPost
+                ? (<PostDetail post={state.randomPost}/>)
                 : null
               }
 
@@ -75,22 +70,17 @@ export const Main = () => {
         </section>
 
         <section className={MainStyles.middle}>
-          {largePost
-            ? (<PostDetail fullscrean={true} post={largePost}/>)
+          {state.largePost
+            ? (<PostDetail fullscrean={true} post={state.largePost}/>)
             : null
           }
         </section>
 
         <section className={MainStyles.bottom}>
-          <PostShort posts={posts} />
+          <PostShort />
         </section>
 
-        <Pagination
-          total={total}
-          perPage={perPage}
-          currentPage={page}
-          onPageChange={setPage}
-        />
+        <Pagination/>
       </section>
     </main>
   )
