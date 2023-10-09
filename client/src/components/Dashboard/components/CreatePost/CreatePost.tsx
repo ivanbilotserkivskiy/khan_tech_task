@@ -1,19 +1,30 @@
 import { baseURL } from "../../../../utils/baseURL"
 import CreatePostStyles from './CreatePost.module.css'
-import { addPost, getPosts } from '../../../../api/posts'
+import { addPost, getPosts, getUsers } from '../../../../api/posts'
 import { useSharedState } from '../../../../store/store'
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { FormDataCreate } from "./types/FormDataCreate"
 
 export const CreatePost = () => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, setState] = useSharedState();
 
+  const getAllUsers = async () => {
+    const fetchedUsers = await getUsers();
+
+    setState(prev => ({...prev, users: fetchedUsers}))
+  }
+
+  useEffect(() => {
+    getAllUsers()
+  }, [])
+
   const [formData, setFormData] = useState<FormDataCreate>({
     title: '',
     description: '',
     realm: '',
     file: null,
+    userId: 0,
   })
 
   const submitPost = async (event: React.FormEvent) => {
@@ -25,7 +36,7 @@ export const CreatePost = () => {
     data.append('realm', formData.realm)
     data.append('description', formData.description);
     data.append('readTime', '6')
-    data.append('userId', '1')
+    data.append('userId', `${formData.userId}`)
     await addPost(data)
 
     const updatedPosts = await getPosts();
@@ -39,7 +50,11 @@ export const CreatePost = () => {
   }
 }
 
-  const changeFormData = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+  const changeFormData = (
+    event: React.ChangeEvent<HTMLInputElement> 
+      | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLSelectElement>
+    ) => {
       setFormData(prev => ({
         ...prev,
         [event.target.name]: event.target.value
@@ -98,10 +113,18 @@ export const CreatePost = () => {
                 ...prev,
                 file: fileToupload,
               }))
-              console.log(event.target.files && event.target.files[0])
             }
           }}
         />
+        <select
+          onChange={changeFormData} 
+          name="userId"
+          className={CreatePostStyles.select} 
+          defaultValue={0}>
+          {state.users.map(user => (
+            <option value={user.id} >{user.username}</option>
+          ))}
+        </select>
         <button className={CreatePostStyles.submit} type='submit'>Create Post</button>
       </form>
     </article>

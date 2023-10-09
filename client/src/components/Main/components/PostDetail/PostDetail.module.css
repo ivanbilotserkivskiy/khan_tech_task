@@ -1,7 +1,7 @@
 
 
 .image {
-  max-width: 600px;
+  width: 600px;
   width: 100%;
   height: 100%;
 }
@@ -21,6 +21,7 @@
 }
 
 .left {
+  display: flex;
   max-width: 1320px;
   max-height: 432px;  
 }
@@ -39,6 +40,7 @@
 }
 
 .right_fullscreen {
+  width: 600px;
   box-sizing: border-box;
   background-color: var(--cards-bg-color);
   max-width: 600px;
@@ -118,7 +120,10 @@
 }
 
 @media screen and (min-width: 680px) {
-  
+  .image {
+    max-width: 600px;
+    max-height: 419px;
+  }
 }
 
 @media screen and (min-width: 920px) {
@@ -127,10 +132,11 @@
     height: 432px;
   }
   .right_fullscreen {
+    width: 872px;
     max-width: 872px;
   }
   .image {
-    max-width: 536px;
+    width: 536px;
   }
 
   .right {
@@ -139,7 +145,7 @@
 }
 @media screen and (min-width: 1320px) {
   .image {
-    max-width: 424px;
+    width: 424px;
   }
   .fullscreen_image {
     width: 872px;
@@ -153,8 +159,9 @@
     flex-direction: column;
   }
   .right {
-    max-width: 400px;
-    box-sizing: content-box;
+    box-sizing: border-box  ;
+    width: 448px;
+    max-width: 448px;
   }
 
   .right_fullscreen {

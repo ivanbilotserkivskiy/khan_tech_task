@@ -1,9 +1,14 @@
 import { Post } from '../types/Post';
 import { Total } from '../types/Total';
+import { UserData } from '../types/UserData';
 import { client } from '../utils/fetchClient';
 
 export const getPosts = (query:string = '') => {
   return client.get<Post[]>(`/posts${query}`);
+}
+
+export const getUsers = () => {
+  return client.get<UserData[]>('/users');
 }
 
 export const getToken = (data: any) => {
@@ -18,10 +23,6 @@ export const getOnePost = (query:string = '') => {
   return client.get<Post>(`/posts${query}`);
 }
 
-export const getPostsById = (postId: number) => {
-  return client.get<Post[]>(`/posts?userId=${postId}`);
-};
-
 export const addPost = (formData: FormData) => {
   return client.postFormData<Post>('/posts', formData);
 };
@@ -31,6 +32,6 @@ export const deletePost = (postId: number) => {
 };
 
 export const updatePost = (postId: number,
-  { title, description, realm }: Pick<Post, 'title' | 'realm' | 'description'>) => {
-  return client.put(`/posts/${postId}`, { title, description, realm });
+ formData: FormData) => {
+  return client.patchFormData(`/posts/${postId}`, formData);
 };

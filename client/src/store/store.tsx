@@ -8,6 +8,7 @@ const initialState: SharedStateType = {
   page: 1,
   perPage: 6,
   total: 0,
+  users: [],
 };
 
 

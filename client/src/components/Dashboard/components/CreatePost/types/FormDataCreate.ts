@@ -3,4 +3,5 @@ export type FormDataCreate = {
   description: string,
   realm: string,
   file: File | null,
+  userId: number,
 }

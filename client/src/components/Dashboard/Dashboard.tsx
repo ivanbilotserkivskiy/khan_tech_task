@@ -21,17 +21,21 @@ export const Dashboard = () => {
 
   return (
     <div className={DashboardStyles.content}>
-      <CreatePost />
-      <PostList />
+      <div className={DashboardStyles.layout}> 
+        <CreatePost />
+        <div className={DashboardStyles.post_list}>
+          <PostList />
+          <button 
+            className={DashboardStyles.button}
+            onClick={() => {
+              fetchPosts()
+            }}
+          >
+            Load more
+          </button>
+        </div>
+      </div>
       <section className={DashboardStyles.pagination}>
-        <button 
-          className={DashboardStyles.button}
-          onClick={() => {
-            fetchPosts()
-          }}
-        >
-          Load more
-        </button>
       </section>
     </div>
   )

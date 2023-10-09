@@ -4,20 +4,21 @@ import { deletePost, getPosts, updatePost } from '../../../../../../../../api/po
 import PostDetailStyles from './PostDetails.module.css';
 import { useSharedState } from '../../../../../../../../store/store';
 import { useState } from "react";
+import { FormDataUpdata } from "./types/FormDataUpdate";
 
 type Props = {
   post: PostType,
 }
 
 export const PostDetails:React.FC<Props> = ({ post }) => {
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, setState] = useSharedState();
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataUpdata>({
     title: post.title,
     description: post.description,
     realm: post.realm,
+    file: null,
   })
 
   const changeFormData = (event:  React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -40,11 +41,21 @@ export const PostDetails:React.FC<Props> = ({ post }) => {
   const submitFormData = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    await updatePost(post.id, {...formData})
-
-    const updatedPosts = await getPosts();
-
-    setState(prev => ({ ...prev, posts: updatedPosts}))
+    try {
+      const data = new FormData();
+      data.append('file', formData.file as File)
+      data.append('title', formData.title)
+      data.append('realm', formData.realm)
+      data.append('description', formData.description);
+      
+      await updatePost(post.id, data)
+      
+      const updatedPosts = await getPosts();
+      
+      setState(prev => ({ ...prev, posts: updatedPosts}))
+    } catch {
+      console.log("Failed to update data")
+    }
   }
 
 
@@ -95,6 +106,19 @@ export const PostDetails:React.FC<Props> = ({ post }) => {
           value={formData.description}
         >
         </textarea>
+        <input
+          onChange={(event) => {
+            if (event.target.files) {
+              const fileToupload = event.target.files[0] || null;
+              setFormData(prev => ({
+                ...prev,
+                file: fileToupload,
+              }))
+            }
+          }}
+          type="file" 
+          accept="image/*"
+        ></input>
         <button className={PostDetailStyles.submit} type='submit'>Apply Changes</button>
       </form>
     </article>

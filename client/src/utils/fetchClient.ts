@@ -35,6 +35,7 @@ export const client = {
   get: <T>(url: string) => request<T>(url),
   post: <T>(url: string, data: any) => request<T>(url, 'POST', data),
   postFormData: <T>(url: string, data: FormData) => request<T>(url, 'POST', data),
+  patchFormData: <T>(url: string, data: FormData) => request<T>(url, 'PUT', data),
   put: <T>(url: string, data: any) => request<T>(url, 'PUT',  data),
   delete: (url: string) => request(url, 'DELETE'),
 };

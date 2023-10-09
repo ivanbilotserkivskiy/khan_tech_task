@@ -17,9 +17,11 @@ export const PostSnapshot:React.FC<Porps> = ({ snapshot }) => {
       style={{
         backgroundImage: `url(${baseURL}${snapshot.image})`
       }}
-    >
-      <h4 className={PostSnapshotStyles.title}>{snapshot.title}</h4>
-      <p className={PostSnapshotStyles.date}>{date}</p>
+    > 
+      <div className={PostSnapshotStyles.overlay}>
+      </div>
+        <h4 className={PostSnapshotStyles.title}>{snapshot.title}</h4>
+        <p className={PostSnapshotStyles.date}>{date}</p>
     </article>
   )
 }
